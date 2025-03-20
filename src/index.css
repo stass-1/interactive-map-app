@@ -17,18 +17,3 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
-
-/* Стили для Leaflet */
-.leaflet-container {
-  height: 100%;
-  width: 100%;
-}
-
-/* Фикс для маркеров Leaflet */
-.leaflet-default-icon-path {
-  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
-}
-
-.leaflet-default-shadow-path {
-  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png);
-}

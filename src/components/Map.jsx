@@ -1,13 +1,12 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Box } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
-import '../utils/leaflet-icon-fix' // Импортируем фикс для маркеров
+import '../utils/leaflet-icon-fix'
 
 function Map() {
-	// Координаты Нидерландов
-	const position = [52.3676, 4.9041] // Амстердам
+	const position = [52.3676, 4.9041]
 	const zoom = 7
 
-	// Координаты для основных мест маршрута
 	const places = [
 		{
 			name: 'Эйндховен',
@@ -27,26 +26,41 @@ function Map() {
 	]
 
 	return (
-		<MapContainer 
-			center={position} 
-			zoom={zoom} 
-			style={{ height: '100%', width: '100%' }}
-		>
-			<TileLayer
-				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-			/>
-			
-			{/* Маркеры для мест маршрута */}
-			{places.map((place, index) => (
-				<Marker key={index} position={place.position}>
-					<Popup>
-						<strong>{place.name}</strong>
-						<p>{place.description}</p>
-					</Popup>
-				</Marker>
-			))}
-		</MapContainer>
+		<Box sx={{
+			'& .leaflet-container': {
+				height: '100%',
+				width: '100%',
+				zIndex: 1
+			},
+			'& .leaflet-pane': {
+				zIndex: 1
+			},
+			'& .leaflet-top, & .leaflet-bottom': {
+				zIndex: 2
+			},
+			height: '100%',
+			width: '100%'
+		}}>
+			<MapContainer 
+				center={position} 
+				zoom={zoom} 
+				style={{ height: '100%', width: '100%' }}
+			>
+				<TileLayer
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				/>
+				
+				{places.map((place, index) => (
+					<Marker key={index} position={place.position}>
+						<Popup>
+							<strong>{place.name}</strong>
+							<p>{place.description}</p>
+						</Popup>
+					</Marker>
+				))}
+			</MapContainer>
+		</Box>
 	)
 }
 

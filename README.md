@@ -20,6 +20,9 @@ An interactive web application using React and OpenStreetMap for displaying and 
 - Adaptive layout based on MUI Grid
 - Full-screen map with markers for key locations
 - Configured code formatting: no semicolons, 4 spaces for tabs
+- Collapsible left panel with toggle button
+- Shadow effect from the left panel onto the map
+- All styles applied using Material UI's sx props instead of CSS files
 
 ## Commands
 
@@ -63,6 +66,8 @@ The application will be available at `http://localhost:5173`.
 - Use component-based architecture for all UI elements
 - Commit messages should be descriptive and follow conventional commits format
 - Create an issue for any significant feature or bugfix
+- Do not use CSS files for styling; use Material UI's sx props instead
+- Do not add comments in code files
 
 ## License
 
