@@ -48,11 +48,21 @@ npm run dev
 
 The application will be available at `http://localhost:5173`.
 
+## Repository Information
+
+- **GitHub Repository**: [https://github.com/stass-1/interactive-map-app](https://github.com/stass-1/interactive-map-app)
+- **Access**: Full read/write access has been granted to all collaborators
+- **CI/CD**: Currently not configured, pending setup
+- **Issue Tracking**: Use GitHub Issues for task management and bug reporting
+- **Branch Strategy**: Feature branches should be created from master and merged via pull requests
+
 ## Development Guidelines
 
 - All code, comments, and documentation must be in English
 - Follow the established code style with Prettier and ESLint
 - Use component-based architecture for all UI elements
+- Commit messages should be descriptive and follow conventional commits format
+- Create an issue for any significant feature or bugfix
 
 ## License
 
