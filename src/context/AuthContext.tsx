@@ -3,7 +3,7 @@ import { initGoogleAuth, googleLogin, googleLogout } from '../utils/googleAuth'
 import { User, AuthContextType } from '../types/auth'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
-const USER_STORAGE_KEY = 'appUserData'
+export const USER_STORAGE_KEY = 'appUserData'
 
 interface AuthProviderProps {
   children: ReactNode
