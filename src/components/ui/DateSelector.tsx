@@ -21,17 +21,17 @@ const DateSelector = ({ collapsed = false }: DateSelectorProps) => {
     
     const handleDateChange = (newDate: Dayjs | null) => {
         if (newDate) {
-            updateUrlWithDate(newDate.toDate())
+            updateUrlWithDate(newDate)
             handleClose()
         }
     }
     
-    const formatDay = (date: Date): number => {
-        return dayjs(date).date()
+    const formatDay = (date: Dayjs): string => {
+        return date.format('D')
     }
     
-    const formatMonth = (date: Date): string => {
-        return dayjs(date).format('MMM')
+    const formatMonth = (date: Dayjs): string => {
+        return date.format('MMM')
     }
     
     const open = Boolean(anchorEl)
@@ -49,10 +49,10 @@ const DateSelector = ({ collapsed = false }: DateSelectorProps) => {
             onClick={handleDateClick}
         >
             <Typography variant="h4">
-                {formatDay(currentDate)}
+                {currentDate ? formatDay(currentDate) : null}
             </Typography>
             <Typography variant="body2">
-                {formatMonth(currentDate)}
+                {currentDate ? formatMonth(currentDate) : null}
             </Typography>
         </Box>
     )

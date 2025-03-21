@@ -1,42 +1,32 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import dayjs from 'dayjs'
+import { useNavigate, useParams } from 'react-router-dom'
+import dayjs, {Dayjs} from 'dayjs'
 import { DateContextType, DateProviderProps } from '../types/date'
 
 const DateContext = createContext<DateContextType | undefined>(undefined)
 
 export function DateProvider({ children }: DateProviderProps) {
     const navigate = useNavigate()
-    const location = useLocation()
-    const [currentDate, setCurrentDate] = useState<Date>(new Date())
+    const { date: pathDate } = useParams()
+    const [currentDate, setCurrentDate] = useState<Dayjs | null>(null)
     
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search)
-        const dateParam = searchParams.get('date')
         
-        if (dateParam) {
-            const parsedDate = dayjs(dateParam).toDate()
-            if (parsedDate && !isNaN(parsedDate.getTime())) {
-                setCurrentDate(parsedDate)
-            }
+        if (pathDate?.length === 8) {
+            const date = dayjs(pathDate, 'YYYYMMDD')
+            setCurrentDate(date)
         } else {
-            updateUrlWithDate(new Date())
+            const date = dayjs()
+            updateUrlWithDate(date)
         }
-    }, [location.search])
+    }, [pathDate])
     
-    const updateUrlWithDate = (date: Date) => {
-        const formattedDate = dayjs(date).format('YYYY-MM-DD')
-        const searchParams = new URLSearchParams(location.search)
-        searchParams.set('date', formattedDate)
-        
-        navigate({
-            pathname: location.pathname,
-            search: searchParams.toString()
-        })
+    const updateUrlWithDate = (date: Dayjs | null, tripId = 'default') => {
+        navigate(date ? `/trip/${tripId}/day/${date.format('YYYYMMDD')}` : '/')
     }
     
     const navigateDay = (days: number) => {
-        const newDate = dayjs(currentDate).add(days, 'day').toDate()
+        const newDate = currentDate ? currentDate.add(days, 'day') : null
         updateUrlWithDate(newDate)
     }
     
@@ -45,7 +35,7 @@ export function DateProvider({ children }: DateProviderProps) {
             currentDate, 
             setCurrentDate, 
             navigateDay, 
-            updateUrlWithDate 
+            updateUrlWithDate
         }}>
             {children}
         </DateContext.Provider>

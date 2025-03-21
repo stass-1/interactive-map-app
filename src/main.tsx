@@ -36,6 +36,14 @@ ReactDOM.createRoot(rootElement).render(
                                 </ProtectedRoute>
                             } 
                         />
+                        <Route
+                            path="/trip/:tripId/day/:date"
+                            element={
+                                <ProtectedRoute>
+                                    <App />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </BrowserRouter>
