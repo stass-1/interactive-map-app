@@ -15,6 +15,32 @@ An interactive web application using React and OpenStreetMap for displaying and 
 - React component architecture
 - File structure with separation into components, utils, etc.
 
+## File Structure
+
+### Key Directories
+- **src/components/** - React components
+  - **auth/** - Authentication-related components
+  - **layout/** - Layout-related components
+- **src/context/** - React context providers
+- **src/utils/** - Utility functions
+
+### Key Files
+- **App.jsx** - Main application component with sidebar content and logout functionality
+- **Map.jsx** - OpenStreetMap implementation using React Leaflet
+- **components/auth/LoginPage.jsx** - Authentication page with form and map background
+- **components/auth/LoginMap.jsx** - Map component used in login page
+- **components/layout/CollapsibleLayout.jsx** - Two-column layout with collapsible sidebar
+- **context/AuthContext.jsx** - Manages authentication state with login/logout functions
+- **utils/mocks.js** - Contains trip data for map markers
+- **utils/googleAuth.js** - Handles Google authentication
+- **utils/leaflet-icon-fix.js** - Fixes for Leaflet map icons
+
+### Component Relationships
+- **App.jsx** uses **CollapsibleLayout.jsx** for the main UI structure
+- **App.jsx** includes **Map.jsx** for the map display
+- **LoginPage.jsx** includes **LoginMap.jsx** for the login background
+- **App.jsx** and **LoginPage.jsx** both consume **AuthContext.jsx** for authentication
+
 ## Implementation Features
 
 - Adaptive layout based on MUI Grid
