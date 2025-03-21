@@ -69,6 +69,12 @@ The application will be available at `http://localhost:5173`.
 - Do not use CSS files for styling; use Material UI's sx props instead
 - Do not add comments in code files
 
+## Collaboration Rules
+
+1. **No Code Comments**: Never add comments in the code. The code should be self-explanatory through descriptive variable and function names.
+
+2. **Applying Changes**: When requesting to apply changes, the codebase is accessible in the `ed` folder. Always use the filesystem tools to implement the requested changes directly in the codebase.
+
 ## License
 
 MIT
