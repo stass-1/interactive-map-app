@@ -1,9 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import App from './App'
-import LoginPage from './components/auth/LoginPage'
-import ProtectedRoute from './components/auth/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
 import './index.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
@@ -25,28 +22,7 @@ ReactDOM.createRoot(rootElement).render(
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <AuthProvider>
-                <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
-                    <Routes>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route 
-                            path="/" 
-                            element={
-                                <ProtectedRoute>
-                                    <App />
-                                </ProtectedRoute>
-                            } 
-                        />
-                        <Route
-                            path="/trip/:tripId/day/:date"
-                            element={
-                                <ProtectedRoute>
-                                    <App />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Routes>
-                </BrowserRouter>
+                <App />
             </AuthProvider>
         </ThemeProvider>
     </React.StrictMode>

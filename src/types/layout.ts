@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode, MouseEvent } from 'react'
 
 export interface CollapsibleLayoutProps {
-    sidebarContent: ReactNode
+    sidebarContent?: ReactNode
     mapContent?: ReactNode
     sidebarControls?: ReactElement<any>
-    onLogout: () => void
+    onLogout?: () => void
 }
 
 export interface UserProfileProps {

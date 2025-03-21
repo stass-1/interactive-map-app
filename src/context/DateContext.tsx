@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import dayjs, {Dayjs} from 'dayjs'
 import { DateContextType, DateProviderProps } from '../types/date'
 
@@ -8,21 +8,25 @@ const DateContext = createContext<DateContextType | undefined>(undefined)
 export function DateProvider({ children }: DateProviderProps) {
     const navigate = useNavigate()
     const { date: pathDate } = useParams()
+    const location = useLocation()
     const [currentDate, setCurrentDate] = useState<Dayjs | null>(null)
     
     useEffect(() => {
-        
         if (pathDate?.length === 8) {
             const date = dayjs(pathDate, 'YYYYMMDD')
             setCurrentDate(date)
-        } else {
+        } else if (!location.pathname.includes('/trip/')) {
             const date = dayjs()
             updateUrlWithDate(date)
         }
-    }, [pathDate])
+    }, [pathDate, location])
     
     const updateUrlWithDate = (date: Dayjs | null, tripId = 'default') => {
-        navigate(date ? `/trip/${tripId}/day/${date.format('YYYYMMDD')}` : '/')
+        if (date) {
+            navigate(`/trip/${tripId}/day/${date.format('YYYYMMDD')}`)
+        } else {
+            navigate('/')
+        }
     }
     
     const navigateDay = (days: number) => {

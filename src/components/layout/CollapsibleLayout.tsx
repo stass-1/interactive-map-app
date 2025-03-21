@@ -1,16 +1,17 @@
 import { useState, useEffect, cloneElement, MouseEvent } from 'react'
-import { Box, Paper, Menu, MenuItem, Fab, Divider } from '@mui/material'
+import { Box, Paper, Menu, MenuItem, Fab } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import LogoutIcon from '@mui/icons-material/Logout'
-import DateSelector from '../ui/DateSelector'
 
 import { CollapsibleLayoutProps } from '../../types/layout'
+import { Outlet, useNavigate } from 'react-router'
 
-function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogout }: CollapsibleLayoutProps) {
+function CollapsibleLayout({ mapContent, sidebarControls, onLogout }: CollapsibleLayoutProps) {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const open = Boolean(anchorEl)
+    const navigate = useNavigate()
 
     const toggleCollapse = () => {
         setIsCollapsed(!isCollapsed)
@@ -26,7 +27,9 @@ function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogo
 
     const handleLogoutClick = () => {
         handleMenuClose()
-        onLogout()
+        onLogout?.()
+        navigate('/login')
+        console.log('Logout clicked')
     }
 
     useEffect(() => {
@@ -85,6 +88,8 @@ function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogo
                     {sidebarControlsWithProps}
                 </Box>
 
+                <Outlet context={isCollapsed}/>
+
                 <Menu
                     id="user-menu"
                     anchorEl={anchorEl}
@@ -96,26 +101,6 @@ function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogo
                         Logout
                     </MenuItem>
                 </Menu>
-
-                <DateSelector collapsed={isCollapsed} />
-                <Divider />
-
-                <Box 
-                    sx={{ 
-                        flexGrow: 1, 
-                        overflow: 'auto',
-                        opacity: isCollapsed ? 0 : 1,
-                        visibility: isCollapsed ? 'hidden' : 'visible',
-                        p: isCollapsed ? 0 : undefined,
-                        transform: isCollapsed ? 'translateX(-20px)' : 'translateX(0)',
-                        transition: theme => theme.transitions.create(['opacity', 'transform', 'visibility'], {
-                            duration: 200,
-                            easing: theme.transitions.easing.easeInOut
-                        })
-                    }}
-                >
-                    {!isCollapsed && sidebarContent}
-                </Box>
             </Paper>
 
             <Box 
