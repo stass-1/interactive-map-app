@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { initGoogleAuth, googleLogin, googleLogout } from '../utils/googleAuth'
 
 const AuthContext = createContext()
+const USER_STORAGE_KEY = 'appUserData'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -12,6 +13,11 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
       try {
         await initGoogleAuth()
+        
+        const storedUser = localStorage.getItem(USER_STORAGE_KEY)
+        if (storedUser) {
+          setUser(JSON.parse(storedUser))
+        }
       } catch (error) {
         console.error('Failed to initialize Google Auth:', error)
       } finally {
@@ -26,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true)
     try {
       setUser(userData)
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData))
     } finally {
       setLoading(false)
     }
@@ -38,9 +45,11 @@ export const AuthProvider = ({ children }) => {
         await googleLogout()
       }
       setUser(null)
+      localStorage.removeItem(USER_STORAGE_KEY)
     } catch (error) {
       console.error('Logout error:', error)
       setUser(null)
+      localStorage.removeItem(USER_STORAGE_KEY)
     } finally {
       setLoading(false)
     }
@@ -51,6 +60,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
       const userData = await googleLogin()
       setUser(userData)
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData))
       return userData
     } catch (error) {
       throw error
