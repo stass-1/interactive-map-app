@@ -6,11 +6,13 @@ import {
     Button, 
     CircularProgress,
     Alert,
-    Grid
+    Grid,
+    Divider
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import LoginMap from './LoginMap'
+import GoogleIcon from '@mui/icons-material/Google'
 
 function LoginPage() {
     const [email, setEmail] = useState('')
@@ -18,7 +20,7 @@ function LoginPage() {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     
-    const { login } = useAuth()
+    const { login, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -49,6 +51,18 @@ function LoginPage() {
         }
     }
 
+    const handleGoogleSignIn = async () => {
+        try {
+            setIsLoading(true)
+            await loginWithGoogle()
+            navigate('/')
+        } catch (error) {
+            setError(error.message)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <Box sx={{ 
             height: '100vh', 
@@ -68,12 +82,13 @@ function LoginPage() {
                     bgcolor: 'background.paper'
                 }}>
                     <Box sx={{ maxWidth: 480, width: '100%', mx: 'auto' }}>
-                        <Typography 
-                            variant="h4" 
-                            gutterBottom 
+
+                        <Typography
+                            variant="h4"
+                            gutterBottom
                             sx={{ mb: 4, fontWeight: 500 }}
                         >
-                            Interactive Map Login
+                            Travel Wizard
                         </Typography>
                         
                         {error && (
@@ -118,6 +133,24 @@ function LoginPage() {
                                 sx={{ mb: 2, py: 1.2 }}
                             >
                                 {isLoading ? <CircularProgress size={24} /> : "Sign In"}
+                            </Button>
+                            
+                            <Divider sx={{ my: 2 }}>
+                                <Typography variant="body2" color="text.secondary">
+                                    OR
+                                </Typography>
+                            </Divider>
+
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                startIcon={<GoogleIcon />}
+                                size="large"
+                                disabled={isLoading}
+                                onClick={handleGoogleSignIn}
+                                sx={{ py: 1.2 }}
+                            >
+                                Sign in with Google
                             </Button>
                             
                             <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 3 }}>
