@@ -1,9 +1,19 @@
-import { Typography } from '@mui/material'
+import { Typography, Button } from '@mui/material'
+import LogoutIcon from '@mui/icons-material/Logout'
 import Map from './components/Map'
 import CollapsibleLayout from './components/layout/CollapsibleLayout'
 import { tripData } from './utils/mocks'
+import { useAuth } from './context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
+    const { user, logout } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        logout()
+        navigate('/login')
+    }
 
     const formatDate = (isoDate) => {
         const date = new Date(isoDate)
@@ -14,7 +24,7 @@ function App() {
 
     const routeString = tripData.itinerary
         .map(item => item.location)
-        .filter((location, index, array) => array.indexOf(location) === index) // Remove duplicates
+        .filter((location, index, array) => array.indexOf(location) === index)
         .join(' → ')
 
     const accommodations = tripData.itinerary
@@ -24,7 +34,26 @@ function App() {
 
     const sidebarContent = (
         <>
-            <Typography variant='h3' gutterBottom>{tripData.title}</Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <Typography variant='h3' gutterBottom sx={{ marginBottom: 0 }}>
+                    {tripData.title}
+                </Typography>
+                <Button 
+                    variant="outlined" 
+                    startIcon={<LogoutIcon />} 
+                    onClick={handleLogout}
+                    size="small"
+                >
+                    Logout
+                </Button>
+            </div>
+            
+            {user && (
+                <Typography variant='body2' sx={{ mb: 2 }}>
+                    Logged in as: {user.name}
+                </Typography>
+            )}
+
             <Typography variant='body1' paragraph>
                 {tripData.subtitle}
             </Typography>
