@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <AuthProvider>
-                <BrowserRouter>
+                <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route 

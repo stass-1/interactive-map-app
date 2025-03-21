@@ -94,12 +94,20 @@ The application will be available at `http://localhost:5173`.
 - Create an issue for any significant feature or bugfix
 - Do not use CSS files for styling; use Material UI's sx props instead
 - Do not add comments in code files
+- Always include React Router v7 future flags in BrowserRouter configuration
 
 ## Collaboration Rules
 
 1. **No Code Comments**: Never add comments in the code. The code should be self-explanatory through descriptive variable and function names.
 
 2. **Applying Changes**: When requesting to apply changes, the codebase is accessible in the `ed` folder. Always use the filesystem tools to implement the requested changes directly in the codebase.
+
+3. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
+   ```jsx
+   <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+   ```
+   - `v7_relativeSplatPath`: Ensures correct relative route resolution within splat routes
+   - `v7_startTransition`: Uses React.useTransition for smoother navigation and better concurrent mode compatibility
 
 ## License
 
