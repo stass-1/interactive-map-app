@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
     Box, 
     Typography, 
@@ -23,10 +23,11 @@ function LoginPage() {
     const { login, loginWithGoogle, user } = useAuth()
     const navigate = useNavigate()
     
-    if (user) {
-        navigate('/', { replace: true })
-        return null
-    }
+    useEffect(() => {
+        if (user) {
+            navigate('/', { replace: true })
+        }
+    }, [user, navigate])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

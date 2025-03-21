@@ -31,21 +31,33 @@ function Map() {
         }, [hasInitialized, map])
 
         useEffect(() => {
+            if (!map) return
+            
+            let resizeRAF
+            let resizeTimeout
+            
             const handleResize = () => {
-                // Use RAF for better performance
-                requestAnimationFrame(() => {
-                    map.invalidateSize({ animate: true, pan: false, debounceMoveend: true })
+                if (resizeRAF) cancelAnimationFrame(resizeRAF)
+                
+                resizeRAF = requestAnimationFrame(() => {
+                    if (map) map.invalidateSize({ animate: true, pan: false, debounceMoveend: true })
                 })
             }
 
             window.addEventListener('resize', handleResize)
 
+            let observerRAF
             const observer = new MutationObserver(() => {
-                requestAnimationFrame(() => {
-                    map.invalidateSize()
+                if (observerRAF) cancelAnimationFrame(observerRAF)
+                
+                observerRAF = requestAnimationFrame(() => {
+                    if (map) map.invalidateSize()
                 })
 
-                setTimeout(() => map.invalidateSize(), 350)
+                if (resizeTimeout) clearTimeout(resizeTimeout)
+                resizeTimeout = setTimeout(() => {
+                    if (map) map.invalidateSize()
+                }, 350)
             })
 
             observer.observe(document.body, { 
@@ -57,6 +69,10 @@ function Map() {
             return () => {
                 window.removeEventListener('resize', handleResize)
                 observer.disconnect()
+                
+                if (resizeRAF) cancelAnimationFrame(resizeRAF)
+                if (observerRAF) cancelAnimationFrame(observerRAF)
+                if (resizeTimeout) clearTimeout(resizeTimeout)
             }
         }, [map])
         

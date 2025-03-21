@@ -1,4 +1,5 @@
 import { Typography, Button } from '@mui/material'
+import { useEffect } from 'react'
 import LogoutIcon from '@mui/icons-material/Logout'
 import Map from './components/Map'
 import CollapsibleLayout from './components/layout/CollapsibleLayout'
@@ -10,10 +11,11 @@ function App() {
     const { user, logout } = useAuth()
     const navigate = useNavigate()
 
-    if (!user) {
-        navigate('/login', { replace: true })
-        return null
-    }
+    useEffect(() => {
+        if (!user) {
+            navigate('/login', { replace: true })
+        }
+    }, [user, navigate])
 
     const handleLogout = () => {
         logout()
