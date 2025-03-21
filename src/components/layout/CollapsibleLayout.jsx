@@ -1,13 +1,31 @@
-import { useState, useEffect } from 'react'
-import { Box, IconButton, Paper } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+import { useState, useEffect, cloneElement } from 'react'
+import { Box, IconButton, Paper, Menu, MenuItem, Fab } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useAuth } from '../../context/AuthContext'
 
-function CollapsibleLayout({ sidebarContent, mapContent }) {
+function CollapsibleLayout({ sidebarContent, mapContent, headerContent, onLogout }) {
     const [isCollapsed, setIsCollapsed] = useState(false)
+    const { user } = useAuth()
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
 
     const toggleCollapse = () => {
         setIsCollapsed(!isCollapsed)
+    }
+
+    const handleAvatarClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleMenuClose = () => {
+        setAnchorEl(null)
+    }
+
+    const handleLogoutClick = () => {
+        handleMenuClose()
+        onLogout()
     }
 
     useEffect(() => {
@@ -23,6 +41,10 @@ function CollapsibleLayout({ sidebarContent, mapContent }) {
             clearTimeout(timer)
         }
     }, [isCollapsed])
+
+    const headerWithProps = headerContent ? 
+        cloneElement(headerContent, { onClick: handleAvatarClick }) : 
+        null
 
     return (
         <Box sx={{ height: '100vh', display: 'flex', overflow: 'hidden', position: 'relative' }}>
@@ -47,13 +69,94 @@ function CollapsibleLayout({ sidebarContent, mapContent }) {
             >
                 <Box sx={{ 
                     display: 'flex', 
-                    justifyContent: isCollapsed ? 'center' : 'flex-end',
-                    p: 1 
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    p: 1,
+                    borderBottom: isCollapsed ? 'none' : '1px solid',
+                    borderColor: 'divider'
                 }}>
-                    <IconButton onClick={toggleCollapse} aria-label="toggle panel">
-                        {isCollapsed ? <MenuIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
+                    {!isCollapsed ? (
+                        <>
+                            {headerWithProps}
+                            <IconButton 
+                                onClick={toggleCollapse} 
+                                aria-label="collapse panel"
+                                sx={{ ml: 'auto' }}
+                            >
+                                <ChevronLeftIcon />
+                            </IconButton>
+                        </>
+                    ) : (
+                        <Box 
+                            sx={{ 
+                                width: '100%', 
+                                display: 'flex', 
+                                justifyContent: 'center'
+                            }}
+                        >
+                            {user?.photoURL ? (
+                                <Box
+                                    component="img"
+                                    src={user.photoURL}
+                                    alt={user.name}
+                                    onClick={handleAvatarClick}
+                                    aria-controls={open ? 'user-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    sx={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: '50%',
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                            boxShadow: '0 0 0 2px rgba(25, 118, 210, 0.5)'
+                                        }
+                                    }}
+                                />
+                            ) : (
+                                <Box
+                                    onClick={handleAvatarClick}
+                                    aria-controls={open ? 'user-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    sx={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: '50%',
+                                        bgcolor: 'primary.main',
+                                        color: 'white',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontWeight: 'bold',
+                                        fontSize: '1.25rem',
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                            boxShadow: '0 0 0 2px rgba(25, 118, 210, 0.5)'
+                                        }
+                                    }}
+                                >
+                                    {user?.name?.charAt(0) || 'U'}
+                                </Box>
+                            )}
+                        </Box>
+                    )}
                 </Box>
+
+                <Menu
+                    id="user-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleMenuClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'user-menu-button',
+                    }}
+                >
+                    <MenuItem onClick={handleLogoutClick} sx={{ gap: 1 }}>
+                        <LogoutIcon fontSize="small" />
+                        Logout
+                    </MenuItem>
+                </Menu>
 
                 <Box 
                     sx={{ 
@@ -82,6 +185,29 @@ function CollapsibleLayout({ sidebarContent, mapContent }) {
                 }}
             >
                 {mapContent}
+
+                {isCollapsed && (
+                    <Fab
+                        aria-label="expand"
+                        onClick={toggleCollapse}
+                        sx={{
+                            position: 'absolute',
+                            left: '8px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 10,
+                            boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.25)',
+                            bgcolor: 'white',
+                            '&:hover': {
+                                bgcolor: 'rgba(255, 255, 255, 0.9)'
+                            },
+                            color: 'primary.main'
+                        }}
+                        size="small"
+                    >
+                        <ChevronRightIcon />
+                    </Fab>
+                )}
             </Box>
         </Box>
     )

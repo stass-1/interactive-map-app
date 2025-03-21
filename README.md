@@ -18,22 +18,22 @@ An interactive web application using React and OpenStreetMap for displaying and 
 ## File Structure
 
 ### Key Directories
-- **src/components/** - React components
-  - **auth/** - Authentication-related components
-  - **layout/** - Layout-related components
-- **src/context/** - React context providers
-- **src/utils/** - Utility functions
+- **D:\\Projects\\ed\\src\\components\\** - React components
+- **D:\\Projects\\ed\\src\\components\\auth\\** - Authentication-related components
+- **D:\\Projects\\ed\\src\\components\\layout\\** - Layout-related components
+- **D:\\Projects\\ed\\src\\context\\** - React context providers
+- **D:\\Projects\\ed\\src\\utils\\** - Utility functions
 
 ### Key Files
-- **App.jsx** - Main application component with sidebar content and logout functionality
-- **Map.jsx** - OpenStreetMap implementation using React Leaflet
-- **components/auth/LoginPage.jsx** - Authentication page with form and map background
-- **components/auth/LoginMap.jsx** - Map component used in login page
-- **components/layout/CollapsibleLayout.jsx** - Two-column layout with collapsible sidebar
-- **context/AuthContext.jsx** - Manages authentication state with login/logout functions
-- **utils/mocks.js** - Contains trip data for map markers
-- **utils/googleAuth.js** - Handles Google authentication
-- **utils/leaflet-icon-fix.js** - Fixes for Leaflet map icons
+- **D:\\Projects\\ed\\src\\App.jsx** - Main application component with sidebar content and logout functionality
+- **D:\\Projects\\ed\\src\\Map.jsx** - OpenStreetMap implementation using React Leaflet
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginPage.jsx** - Authentication page with form and map background
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginMap.jsx** - Map component used in login page
+- **D:\\Projects\\ed\\src\\components\\layout\\CollapsibleLayout.jsx** - Two-column layout with collapsible sidebar
+- **D:\\Projects\\ed\\src\\context\\AuthContext.jsx** - Manages authentication state with login/logout functions
+- **D:\\Projects\\ed\\src\\utils\\mocks.js** - Contains trip data for map markers
+- **D:\\Projects\\ed\\src\\utils\\googleAuth.js** - Handles Google authentication
+- **D:\\Projects\\ed\\src\\utils\\leaflet-icon-fix.js** - Fixes for Leaflet map icons
 
 ### Component Relationships
 - **App.jsx** uses **CollapsibleLayout.jsx** for the main UI structure
@@ -100,7 +100,7 @@ The application will be available at `http://localhost:5173`.
 
 1. **No Code Comments**: Never add comments in the code. The code should be self-explanatory through descriptive variable and function names.
 
-2. **Applying Changes**: When requesting to apply changes, the codebase is accessible in the `ed` folder. Always use the filesystem tools to implement the requested changes directly in the codebase.
+2. **Applying Changes**: When requesting to apply changes, the codebase is accessible in the `D:\\Projects\\ed` folder. Always use the filesystem tools to implement the requested changes directly in the codebase.
 
 3. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
    ```jsx
