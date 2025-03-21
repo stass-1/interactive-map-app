@@ -78,7 +78,7 @@ function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogo
                     display: 'flex', 
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    p: 1,
+                    p: 1.25,
                     borderBottom: '1px solid',
                     borderColor: 'divider'
                 }}>

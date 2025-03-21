@@ -7,7 +7,7 @@ function UserProfile({ onClick, isCollapsed = false }: UserProfileProps) {
 
     if (!user) return null
 
-    const avatarSize = 46
+    const avatarSize = 44
 
     return (
         <Box
@@ -33,7 +33,7 @@ function UserProfile({ onClick, isCollapsed = false }: UserProfileProps) {
                 sx={{ width: avatarSize, height: avatarSize, mr: isCollapsed ? 0 : 2 }}
             />
             {!isCollapsed && (
-                <Box>
+                <Box sx={{whiteSpace: 'nowrap'}}>
                     <Typography variant='body1' sx={{ fontWeight: 'medium' }}>
                         {user.name}
                     </Typography>
