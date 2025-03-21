@@ -20,8 +20,13 @@ function LoginPage() {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     
-    const { login, loginWithGoogle } = useAuth()
+    const { login, loginWithGoogle, user } = useAuth()
     const navigate = useNavigate()
+    
+    if (user) {
+        navigate('/', { replace: true })
+        return null
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -40,7 +45,7 @@ function LoginPage() {
                     email: 'user@example.com' 
                 }
                 login(userData)
-                navigate('/')
+                navigate('/', { replace: true })
             } else {
                 throw new Error('Invalid email or password')
             }
@@ -55,7 +60,7 @@ function LoginPage() {
         try {
             setIsLoading(true)
             await loginWithGoogle()
-            navigate('/')
+            navigate('/', { replace: true })
         } catch (error) {
             setError(error.message)
         } finally {
