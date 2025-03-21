@@ -1,12 +1,10 @@
 import L from 'leaflet'
-
-const iconUrl = 'leaflet/dist/images/marker-icon.png'
-const shadowUrl = 'leaflet/dist/images/marker-shadow.png'
-
-const DefaultIcon = L.Icon.Default.prototype as any
-if (DefaultIcon._getIconUrl) {
-    delete DefaultIcon._getIconUrl
-}
+// @ts-ignore
+import iconUrl from 'leaflet/dist/images/marker-icon.png'
+// @ts-ignore
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
+// @ts-ignore
+delete L.Icon.Default.prototype._getIconUrl
 
 L.Icon.Default.mergeOptions({
 	iconUrl,
