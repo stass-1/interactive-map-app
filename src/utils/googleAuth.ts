@@ -1,17 +1,50 @@
+import { User } from '../types/auth'
+
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
-export const initGoogleAuth = () => {
+interface GoogleTokenResponse {
+    access_token: string
+    error?: string
+}
+
+interface GoogleUserInfo {
+    sub: string
+    name: string
+    email: string
+    picture: string
+}
+
+declare global {
+    interface Window {
+        google?: {
+            accounts: {
+                oauth2: {
+                    initTokenClient: (params: {
+                        client_id: string
+                        scope: string
+                        callback: (response: GoogleTokenResponse) => void
+                    }) => {
+                        requestAccessToken: () => void
+                    }
+                    revoke: (token: string, callback: () => void) => void
+                }
+            }
+        }
+    }
+}
+
+export const initGoogleAuth = (): Promise<void> => {
     return new Promise((resolve) => {
         const script = document.createElement('script')
         script.src = 'https://accounts.google.com/gsi/client'
         script.async = true
         script.defer = true
-        script.onload = resolve
+        script.onload = () => resolve()
         document.head.appendChild(script)
     })
 }
 
-export const googleLogin = () => {
+export const googleLogin = (): Promise<User> => {
     return new Promise((resolve, reject) => {
         try {
             if (!window.google || !window.google.accounts) {
@@ -21,7 +54,7 @@ export const googleLogin = () => {
             const client = window.google.accounts.oauth2.initTokenClient({
                 client_id: GOOGLE_CLIENT_ID,
                 scope: 'profile email',
-                callback: (tokenResponse) => {
+                callback: (tokenResponse: GoogleTokenResponse) => {
                     if (tokenResponse.error) {
                         reject(tokenResponse)
                         return
@@ -34,8 +67,8 @@ export const googleLogin = () => {
                         }
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        const userData = {
+                    .then((data: GoogleUserInfo) => {
+                        const userData: User = {
                             id: data.sub,
                             name: data.name,
                             email: data.email,
@@ -54,7 +87,7 @@ export const googleLogin = () => {
     })
 }
 
-export const googleLogout = () => {
+export const googleLogout = (): Promise<void> => {
     return new Promise((resolve) => {
         if (window.google && window.google.accounts) {
             window.google.accounts.oauth2.revoke(localStorage.getItem('googleToken') || '', () => {

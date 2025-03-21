@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, MouseEvent } from 'react'
 import { Box, Typography, IconButton, Popover } from '@mui/material'
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material'
 import { useDate } from '../../context/DateContext'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
+import { DateSelectorProps } from '../../types/layout'
 
-const DateSelector = ({ collapsed = false }) => {
+const DateSelector = ({ collapsed = false }: DateSelectorProps) => {
     const { currentDate, navigateDay, updateUrlWithDate } = useDate()
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     
-    const handleDateClick = (event) => {
+    const handleDateClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
     
@@ -18,16 +19,18 @@ const DateSelector = ({ collapsed = false }) => {
         setAnchorEl(null)
     }
     
-    const handleDateChange = (newDate) => {
-        updateUrlWithDate(newDate.toDate())
-        handleClose()
+    const handleDateChange = (newDate: Dayjs | null) => {
+        if (newDate) {
+            updateUrlWithDate(newDate.toDate())
+            handleClose()
+        }
     }
     
-    const formatDay = (date) => {
+    const formatDay = (date: Date): number => {
         return dayjs(date).date()
     }
     
-    const formatMonth = (date) => {
+    const formatMonth = (date: Date): string => {
         return dayjs(date).format('MMM')
     }
     
@@ -59,7 +62,7 @@ const DateSelector = ({ collapsed = false }) => {
             sx={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: collapsed ? 'center' : 'space-between',
                 p: 2,
                 px: collapsed ? 1 : 2
             }}

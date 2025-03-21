@@ -1,10 +1,10 @@
 # Interactive Map Application
 
-An interactive web application using React and OpenStreetMap for displaying and interacting with geodata.
+An interactive web application using React with TypeScript and OpenStreetMap for displaying and interacting with geodata.
 
 ## Technology Stack
 
-- **React** with **Vite** as the bundler
+- **React** with **TypeScript** and **Vite** as the bundler
 - **Material UI** for user interface components
 - **React Leaflet** for interactive OpenStreetMap integration
 - **ESLint** and **Prettier** for code formatting
@@ -12,8 +12,8 @@ An interactive web application using React and OpenStreetMap for displaying and 
 ## Project Structure
 
 - Two-column interface: info panel (2/5) + map (3/5)
-- React component architecture
-- File structure with separation into components, utils, etc.
+- React component architecture with TypeScript type safety
+- File structure with separation into components, utils, types, etc.
 
 ## File Structure
 
@@ -22,30 +22,34 @@ An interactive web application using React and OpenStreetMap for displaying and 
 - **D:\\Projects\\ed\\src\\components\\auth\\** - Authentication-related components
 - **D:\\Projects\\ed\\src\\components\\layout\\** - Layout-related components
 - **D:\\Projects\\ed\\src\\context\\** - React context providers
+- **D:\\Projects\\ed\\src\\types\\** - TypeScript type definitions
 - **D:\\Projects\\ed\\src\\utils\\** - Utility functions
 
 ### Key Files
-- **D:\\Projects\\ed\\src\\App.jsx** - Main application component with sidebar content and logout functionality
-- **D:\\Projects\\ed\\src\\Map.jsx** - OpenStreetMap implementation using React Leaflet
-- **D:\\Projects\\ed\\src\\components\\auth\\LoginPage.jsx** - Authentication page with form and map background
-- **D:\\Projects\\ed\\src\\components\\auth\\LoginMap.jsx** - Map component used in login page
-- **D:\\Projects\\ed\\src\\components\\layout\\CollapsibleLayout.jsx** - Two-column layout with collapsible sidebar
-- **D:\\Projects\\ed\\src\\context\\AuthContext.jsx** - Manages authentication state with login/logout functions
-- **D:\\Projects\\ed\\src\\utils\\mocks.js** - Contains trip data for map markers
-- **D:\\Projects\\ed\\src\\utils\\googleAuth.js** - Handles Google authentication
-- **D:\\Projects\\ed\\src\\utils\\leaflet-icon-fix.js** - Fixes for Leaflet map icons
+- **D:\\Projects\\ed\\src\\App.tsx** - Main application component with sidebar content and logout functionality
+- **D:\\Projects\\ed\\src\\components\\Map.tsx** - OpenStreetMap implementation using React Leaflet
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginPage.tsx** - Authentication page with form and map background
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginMap.tsx** - Map component used in login page
+- **D:\\Projects\\ed\\src\\components\\layout\\CollapsibleLayout.tsx** - Two-column layout with collapsible sidebar
+- **D:\\Projects\\ed\\src\\context\\AuthContext.tsx** - Manages authentication state with login/logout functions
+- **D:\\Projects\\ed\\src\\types\\auth.ts** - Authentication related type definitions
+- **D:\\Projects\\ed\\src\\types\\map.ts** - Map and geographic data type definitions
+- **D:\\Projects\\ed\\src\\utils\\mocks\\tripData.ts** - Contains strongly-typed trip data for map markers
+- **D:\\Projects\\ed\\src\\utils\\googleAuth.ts** - Handles Google authentication
+- **D:\\Projects\\ed\\src\\utils\\leaflet-icon-fix.ts** - Fixes for Leaflet map icons
 
 ### Component Relationships
-- **App.jsx** uses **CollapsibleLayout.jsx** for the main UI structure
-- **App.jsx** includes **Map.jsx** for the map display
-- **LoginPage.jsx** includes **LoginMap.jsx** for the login background
-- **App.jsx** and **LoginPage.jsx** both consume **AuthContext.jsx** for authentication
+- **App.tsx** uses **CollapsibleLayout.tsx** for the main UI structure
+- **App.tsx** includes **Map.tsx** for the map display
+- **LoginPage.tsx** includes **LoginMap.tsx** for the login background
+- **App.tsx** and **LoginPage.tsx** both consume **AuthContext.tsx** for authentication
 
 ## Implementation Features
 
 - Adaptive layout based on MUI Grid
 - Full-screen map with markers for key locations
 - Configured code formatting: no semicolons, 4 spaces for tabs
+- TypeScript static type checking for improved code quality and developer experience
 - Collapsible left panel with toggle button
 - Shadow effect from the left panel onto the map
 - All styles applied using Material UI's sx props instead of CSS files
@@ -53,9 +57,11 @@ An interactive web application using React and OpenStreetMap for displaying and 
 ## Commands
 
 - `yarn run dev` - start development server
-- `yarn run build` - build the project
-- `yarn run lint` - check code
-- `yarn run format` - format code
+- `yarn run build` - build the project (includes TypeScript compilation)
+- `yarn run lint` - check code with ESLint
+- `yarn run lint:fix` - fix code with ESLint
+- `yarn run format` - format code with Prettier
+- `yarn run type-check` - check TypeScript types without emitting files
 
 ## Installation
 
@@ -90,6 +96,7 @@ The application will be available at `http://localhost:5173`.
 - All code, comments, and documentation must be in English
 - Follow the established code style with Prettier and ESLint
 - Use component-based architecture for all UI elements
+- Use proper TypeScript types for all components and functions
 - Commit messages should be descriptive and follow conventional commits format
 - Create an issue for any significant feature or bugfix
 - Do not use CSS files for styling; use Material UI's sx props instead
@@ -104,8 +111,10 @@ The application will be available at `http://localhost:5173`.
 
 3. **Git Version Control**: Always add new files to git immediately after creation using `git add <file-path>` to ensure they are tracked in version control.
 
-4. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
-   ```jsx
+4. **TypeScript Usage**: Always use proper typing for variables, functions, and components. Avoid using `any` type unless absolutely necessary.
+
+5. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
+   ```tsx
    <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
    ```
    - `v7_relativeSplatPath`: Ensures correct relative route resolution within splat routes

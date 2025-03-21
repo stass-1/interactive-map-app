@@ -1,8 +1,13 @@
+import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { CircularProgress, Box } from '@mui/material'
 
-function ProtectedRoute({ children }) {
+interface ProtectedRouteProps {
+    children: ReactNode
+}
+
+function ProtectedRoute({ children }: ProtectedRouteProps) {
     const { user, loading } = useAuth()
 
     if (loading) {
@@ -22,7 +27,7 @@ function ProtectedRoute({ children }) {
         return <Navigate to="/login" />
     }
 
-    return children
+    return <>{children}</>
 }
 
 export default ProtectedRoute

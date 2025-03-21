@@ -1,11 +1,16 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { initGoogleAuth, googleLogin, googleLogout } from '../utils/googleAuth'
+import { User, AuthContextType } from '../types/auth'
 
-const AuthContext = createContext()
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 const USER_STORAGE_KEY = 'appUserData'
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
+interface AuthProviderProps {
+  children: ReactNode
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     initAuth()
   }, [])
 
-  const login = (userData) => {
+  const login = (userData: User) => {
     setLoading(true)
     try {
       setUser(userData)
@@ -55,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (): Promise<User> => {
     try {
       setLoading(true)
       const userData = await googleLogin()
@@ -76,6 +81,10 @@ export const AuthProvider = ({ children }) => {
   )
 }
 
-export const useAuth = () => {
-  return useContext(AuthContext)
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
 }

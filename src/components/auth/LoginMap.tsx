@@ -4,8 +4,24 @@ import { Box } from '@mui/material'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
+interface ViewportState {
+    latitude: number
+    longitude: number
+    zoom: number
+    pitch: number
+    bearing: number
+}
+
+interface AnimationState {
+    startTime: number | null
+    amplitude: number
+    frequency: number
+    baseLatitude: number
+    baseLongitude: number
+}
+
 function LoginMap() {
-    const [viewport, setViewport] = useState({
+    const [viewport, setViewport] = useState<ViewportState>({
         latitude: 52.3676,
         longitude: 4.9041,
         zoom: 15,
@@ -14,7 +30,7 @@ function LoginMap() {
     })
 
     const [isLoaded, setIsLoaded] = useState(false)
-    const animationRef = useRef({
+    const animationRef = useRef<AnimationState>({
         startTime: null,
         amplitude: 0.002,
         frequency: 0.1,
@@ -23,9 +39,9 @@ function LoginMap() {
     })
 
     useEffect(() => {
-        let animationFrameId
+        let animationFrameId: number
 
-        const animate = (currentTime) => {
+        const animate = (currentTime: number) => {
             if (!animationRef.current.startTime) {
                 animationRef.current.startTime = currentTime
             }

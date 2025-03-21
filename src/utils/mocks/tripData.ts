@@ -1,4 +1,6 @@
-export const tripData = {
+import { TripData } from '../../types/map'
+
+export const tripData: TripData = {
     title: "Путешествие в поисках истинного голландского gezelligheid",
     subtitle: "Открывая уют, тепло и душевность Нидерландов",
     dateRange: {

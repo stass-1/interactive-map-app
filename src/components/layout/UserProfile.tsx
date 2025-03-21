@@ -1,13 +1,13 @@
 import { Typography, Avatar, Box } from '@mui/material'
 import { useAuth } from '../../context/AuthContext'
+import { UserProfileProps } from '../../types/layout'
 
-function UserProfile({ onClick, isCollapsed = false }) {
-
+function UserProfile({ onClick, isCollapsed = false }: UserProfileProps) {
     const { user } = useAuth()
 
     if (!user) return null
 
-    const avatarSize = isCollapsed ? 36 : 40
+    const avatarSize = 46
 
     return (
         <Box

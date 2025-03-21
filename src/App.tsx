@@ -22,14 +22,14 @@ function App() {
         navigate('/login')
     }
 
-    const headerContent = <UserProfile />
+    const sidebarControls = <UserProfile />
     const sidebarContent = <SidebarContent />
     const mapContent = <Map />
 
     return (
         <DateProvider>
             <CollapsibleLayout 
-                sidebarControls={headerContent}
+                sidebarControls={sidebarControls}
                 sidebarContent={sidebarContent}
                 mapContent={mapContent}
                 onLogout={handleLogout}

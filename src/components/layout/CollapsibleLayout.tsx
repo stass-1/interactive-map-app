@@ -1,20 +1,21 @@
-import { useState, useEffect, cloneElement } from 'react'
+import { useState, useEffect, cloneElement, MouseEvent } from 'react'
 import { Box, Paper, Menu, MenuItem, Fab, Divider } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DateSelector from '../ui/DateSelector'
+import { CollapsibleLayoutProps } from '../../types/layout'
 
-function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogout }) {
+function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogout }: CollapsibleLayoutProps) {
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const open = Boolean(anchorEl)
 
     const toggleCollapse = () => {
         setIsCollapsed(!isCollapsed)
     }
 
-    const handleAvatarClick = (event) => {
+    const handleAvatarClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
 
@@ -28,7 +29,7 @@ function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogo
     }
 
     useEffect(() => {
-        let timer
+        let timer: NodeJS.Timeout
         const frame = requestAnimationFrame(() => {
             timer = setTimeout(() => {
                 window.dispatchEvent(new Event('resize'))

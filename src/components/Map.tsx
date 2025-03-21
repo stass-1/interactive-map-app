@@ -5,12 +5,13 @@ import 'leaflet/dist/leaflet.css'
 import '../utils/leaflet-icon-fix'
 import { latLngBounds } from 'leaflet'
 import { tripData } from '../utils/mocks'
+import { Place } from '../types/map'
 
 function Map() {
-    const position = [52.3676, 4.9041]
+    const position: [number, number] = [52.3676, 4.9041]
     const zoom = 8
 
-    const places = tripData.itinerary.map(item => ({
+    const places: Place[] = tripData.itinerary.map(item => ({
         name: item.location,
         position: item.coordinates,
         description: item.description,
@@ -33,8 +34,8 @@ function Map() {
         useEffect(() => {
             if (!map) return
             
-            let resizeRAF
-            let resizeTimeout
+            let resizeRAF: number | null = null
+            let resizeTimeout: NodeJS.Timeout | null = null
             
             const handleResize = () => {
                 if (resizeRAF) cancelAnimationFrame(resizeRAF)
@@ -46,7 +47,7 @@ function Map() {
 
             window.addEventListener('resize', handleResize)
 
-            let observerRAF
+            let observerRAF: number | null = null
             const observer = new MutationObserver(() => {
                 if (observerRAF) cancelAnimationFrame(observerRAF)
                 

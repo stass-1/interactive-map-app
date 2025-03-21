@@ -2,7 +2,7 @@ import { Typography, Box } from '@mui/material'
 import { tripData } from '../../utils/mocks'
 
 function SidebarContent() {
-    const formatDate = (isoDate) => {
+    const formatDate = (isoDate: string): string => {
         const date = new Date(isoDate)
         return date.toLocaleDateString('ru-RU')
     }

@@ -1,13 +1,14 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { DateContextType, DateProviderProps } from '../types/date'
 
-const DateContext = createContext()
+const DateContext = createContext<DateContextType | undefined>(undefined)
 
-export function DateProvider({ children }) {
+export function DateProvider({ children }: DateProviderProps) {
     const navigate = useNavigate()
     const location = useLocation()
-    const [currentDate, setCurrentDate] = useState(new Date())
+    const [currentDate, setCurrentDate] = useState<Date>(new Date())
     
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search)
@@ -23,7 +24,7 @@ export function DateProvider({ children }) {
         }
     }, [location.search])
     
-    const updateUrlWithDate = (date) => {
+    const updateUrlWithDate = (date: Date) => {
         const formattedDate = dayjs(date).format('YYYY-MM-DD')
         const searchParams = new URLSearchParams(location.search)
         searchParams.set('date', formattedDate)
@@ -34,7 +35,7 @@ export function DateProvider({ children }) {
         })
     }
     
-    const navigateDay = (days) => {
+    const navigateDay = (days: number) => {
         const newDate = dayjs(currentDate).add(days, 'day').toDate()
         updateUrlWithDate(newDate)
     }
@@ -51,7 +52,7 @@ export function DateProvider({ children }) {
     )
 }
 
-export function useDate() {
+export function useDate(): DateContextType {
     const context = useContext(DateContext)
     if (!context) {
         throw new Error('useDate must be used within a DateProvider')

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { 
     Box, 
     Typography, 
@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import LoginMap from './LoginMap'
 import GoogleIcon from '@mui/icons-material/Google'
+import { User } from '../../types/auth'
 
 function LoginPage() {
     const [email, setEmail] = useState('')
@@ -29,7 +30,7 @@ function LoginPage() {
         }
     }, [user, navigate])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setError('')
         setIsLoading(true)
@@ -40,10 +41,11 @@ function LoginPage() {
             }
             
             if (email === 'user@example.com' && password === 'password') {
-                const userData = { 
+                const userData: User = { 
                     id: '1', 
                     name: 'Demo User', 
-                    email: 'user@example.com' 
+                    email: 'user@example.com',
+                    photoURL: ''
                 }
                 login(userData)
                 navigate('/', { replace: true })
@@ -51,7 +53,11 @@ function LoginPage() {
                 throw new Error('Invalid email or password')
             }
         } catch (error) {
-            setError(error.message)
+            if (error instanceof Error) {
+                setError(error.message)
+            } else {
+                setError('An unexpected error occurred')
+            }
         } finally {
             setIsLoading(false)
         }
@@ -63,7 +69,11 @@ function LoginPage() {
             await loginWithGoogle()
             navigate('/', { replace: true })
         } catch (error) {
-            setError(error.message)
+            if (error instanceof Error) {
+                setError(error.message)
+            } else {
+                setError('An unexpected error occurred')
+            }
         } finally {
             setIsLoading(false)
         }
