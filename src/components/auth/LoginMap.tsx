@@ -91,7 +91,7 @@ function LoginMap() {
             <Map
                 mapLib={maplibregl}
                 initialViewState={viewport}
-                viewState={viewport}
+                viewState={viewport as any}
                 style={{
                     height: '200%',
                     width: '200%',

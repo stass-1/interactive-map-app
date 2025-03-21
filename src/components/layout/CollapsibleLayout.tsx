@@ -4,6 +4,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DateSelector from '../ui/DateSelector'
+
 import { CollapsibleLayoutProps } from '../../types/layout'
 
 function CollapsibleLayout({ sidebarContent, mapContent, sidebarControls, onLogout }: CollapsibleLayoutProps) {

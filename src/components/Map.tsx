@@ -114,7 +114,6 @@ function Map() {
                 style={{ height: '100%', width: '100%' }}
                 zoomSnap={0.5}
                 zoomDelta={0.5}
-                watchOverlayVisibility={true}
                 boundsOptions={{ padding: [25, 25] }}
             >
                 <TileLayer

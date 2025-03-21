@@ -1,15 +1,16 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, MouseEvent } from 'react'
 
 export interface CollapsibleLayoutProps {
     sidebarContent: ReactNode
-    mapContent: ReactNode
-    sidebarControls: ReactElement
+    mapContent?: ReactNode
+    sidebarControls?: ReactElement<any>
     onLogout: () => void
 }
 
 export interface UserProfileProps {
-    onClick?: (event: React.MouseEvent<HTMLElement>) => void
+    onClick?: (event: MouseEvent<HTMLElement>) => void
     isCollapsed?: boolean
+    onLogout?: () => void
 }
 
 export interface DateSelectorProps {

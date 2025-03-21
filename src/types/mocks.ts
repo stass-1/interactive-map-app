@@ -1,4 +1,3 @@
-import { TripData } from './map'
 import { LatLngTuple } from 'leaflet'
 
 export interface TransportSegment {
