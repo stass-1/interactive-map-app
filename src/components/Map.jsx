@@ -1,11 +1,14 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { useEffect } from 'react'
 import { Box } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
 import '../utils/leaflet-icon-fix'
+import { latLngBounds } from 'leaflet'
 
 function Map() {
+
 	const position = [52.3676, 4.9041]
-	const zoom = 7
+	const zoom = 8
 
 	const places = [
 		{
@@ -25,6 +28,19 @@ function Map() {
 		}
 	]
 
+	const markersBounds = latLngBounds(places.map(place => place.position))
+	const navigationBounds = markersBounds.pad(0.3)
+	
+	function FitMapToMarkers() {
+		const map = useMap()
+		
+		useEffect(() => {
+			map.fitBounds(markersBounds, { padding: [25, 25] })
+		}, [map])
+		
+		return null
+	}
+
 	return (
 		<Box sx={{
 			'& .leaflet-container': {
@@ -42,9 +58,14 @@ function Map() {
 			width: '100%'
 		}}>
 			<MapContainer 
-				center={position} 
-				zoom={zoom} 
+				center={position}
+				zoom={zoom}
+				minZoom={7}
+				maxBounds={navigationBounds}
 				style={{ height: '100%', width: '100%' }}
+				zoomSnap={0.5}
+				zoomDelta={0.5}
+				boundsOptions={{ padding: [25, 25] }}
 			>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -59,6 +80,8 @@ function Map() {
 						</Popup>
 					</Marker>
 				))}
+				
+				<FitMapToMarkers />
 			</MapContainer>
 		</Box>
 	)
