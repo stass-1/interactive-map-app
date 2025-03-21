@@ -52,10 +52,10 @@ An interactive web application using React and OpenStreetMap for displaying and 
 
 ## Commands
 
-- `npm run dev` - start development server
-- `npm run build` - build the project
-- `npm run lint` - check code
-- `npm run format` - format code
+- `yarn run dev` - start development server
+- `yarn run build` - build the project
+- `yarn run lint` - check code
+- `yarn run format` - format code
 
 ## Installation
 
@@ -67,12 +67,12 @@ cd interactive-map-app
 
 2. Install dependencies
 ```
-npm install
+yarn install
 ```
 
 3. Run the project in development mode
 ```
-npm run dev
+yarn run dev
 ```
 
 The application will be available at `http://localhost:5173`.
@@ -102,7 +102,9 @@ The application will be available at `http://localhost:5173`.
 
 2. **Applying Changes**: When requesting to apply changes, the codebase is accessible in the `D:\\Projects\\ed` folder. Always use the filesystem tools to implement the requested changes directly in the codebase.
 
-3. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
+3. **Git Version Control**: Always add new files to git immediately after creation using `git add <file-path>` to ensure they are tracked in version control.
+
+4. **React Router Configuration**: Always use the following future flags in BrowserRouter to ensure compatibility with React Router v7:
    ```jsx
    <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
    ```

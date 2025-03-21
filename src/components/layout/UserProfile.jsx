@@ -1,31 +1,38 @@
 import { Typography, Avatar, Box } from '@mui/material'
 import { useAuth } from '../../context/AuthContext'
 
-function UserProfile({ onClick, compact = false }) {
+function UserProfile({ onClick, isCollapsed = false }) {
+
     const { user } = useAuth()
 
     if (!user) return null
 
+    const avatarSize = isCollapsed ? 36 : 40
+
     return (
-        <Box 
-            sx={{ 
-                display: 'flex', 
-                alignItems: 'center',
+        <Box
+            sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: isCollapsed ? 'center' : 'flex-start',
                 cursor: 'pointer',
-                borderRadius: 1,
                 '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                    '.MuiTypography-root': {
+                        opacity: 0.8
+                    },
+                    '.MuiAvatar-root': {
+                        boxShadow: '0 0 0 2px rgba(25, 118, 210, 0.5)'
+                    }
                 }
             }}
             onClick={onClick}
-            aria-haspopup='true'
         >
-            <Avatar 
-                src={user.photoURL} 
-                alt={user.name} 
-                sx={{ width: 36, height: 36, mr: compact ? 1 : 2 }}
+            <Avatar
+                src={user.photoURL}
+                alt={user.name}
+                sx={{ width: avatarSize, height: avatarSize, mr: isCollapsed ? 0 : 2 }}
             />
-            {!compact && (
+            {!isCollapsed && (
                 <Box>
                     <Typography variant='body1' sx={{ fontWeight: 'medium' }}>
                         {user.name}

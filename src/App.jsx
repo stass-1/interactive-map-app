@@ -4,6 +4,7 @@ import CollapsibleLayout from './components/layout/CollapsibleLayout'
 import SidebarContent from './components/layout/SidebarContent'
 import UserProfile from './components/layout/UserProfile'
 import { useAuth } from './context/AuthContext'
+import { DateProvider } from './context/DateContext'
 import { useNavigate } from 'react-router-dom'
 
 function App() {
@@ -26,12 +27,14 @@ function App() {
     const mapContent = <Map />
 
     return (
-        <CollapsibleLayout 
-            headerContent={headerContent}
-            sidebarContent={sidebarContent}
-            mapContent={mapContent}
-            onLogout={handleLogout}
-        />
+        <DateProvider>
+            <CollapsibleLayout 
+                sidebarControls={headerContent}
+                sidebarContent={sidebarContent}
+                mapContent={mapContent}
+                onLogout={handleLogout}
+            />
+        </DateProvider>
     )
 }
 
