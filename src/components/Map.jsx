@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
 import '../utils/leaflet-icon-fix'
@@ -29,14 +29,17 @@ function Map() {
 	]
 
 	const markersBounds = latLngBounds(places.map(place => place.position))
-	const navigationBounds = markersBounds.pad(0.3)
 	
 	function FitMapToMarkers() {
 		const map = useMap()
+		const [hasInitialized, setHasInitialized] = useState(false)
 		
 		useEffect(() => {
-			map.fitBounds(markersBounds, { padding: [25, 25] })
-		}, [map])
+			if (!hasInitialized) {
+				map.fitBounds(markersBounds, { padding: [25, 25] })
+				setHasInitialized(true)
+			}
+		}, [hasInitialized, map])
 		
 		return null
 	}
@@ -61,7 +64,6 @@ function Map() {
 				center={position}
 				zoom={zoom}
 				minZoom={7}
-				maxBounds={navigationBounds}
 				style={{ height: '100%', width: '100%' }}
 				zoomSnap={0.5}
 				zoomDelta={0.5}
