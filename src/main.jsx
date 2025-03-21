@@ -25,12 +25,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <BrowserRouter>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/map" element={
-                            <ProtectedRoute>
-                                <App />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="*" element={<Navigate to="/map" replace />} />
+                        <Route 
+                            path="/" 
+                            element={
+                                <ProtectedRoute>
+                                    <App />
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </BrowserRouter>
             </AuthProvider>

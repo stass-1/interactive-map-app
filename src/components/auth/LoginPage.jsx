@@ -8,6 +8,7 @@ import {
     Alert,
     Grid
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import LoginMap from './LoginMap'
 
@@ -18,6 +19,7 @@ function LoginPage() {
     const [isLoading, setIsLoading] = useState(false)
     
     const { login } = useAuth()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -30,11 +32,13 @@ function LoginPage() {
             }
             
             if (email === 'user@example.com' && password === 'password') {
-                login({ 
+                const userData = { 
                     id: '1', 
                     name: 'Demo User', 
                     email: 'user@example.com' 
-                })
+                }
+                login(userData)
+                navigate('/')
             } else {
                 throw new Error('Invalid email or password')
             }
@@ -52,7 +56,6 @@ function LoginPage() {
             overflow: 'hidden'
         }}>
             <Grid container sx={{ height: '100%' }}>
-
                 <Grid item xs={12} md={5} sx={{ 
                     height: '100%',
                     display: 'flex',
