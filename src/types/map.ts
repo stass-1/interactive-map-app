@@ -24,6 +24,7 @@ export interface TripItem {
 }
 
 export interface TripData {
+    id: string
     title: string
     subtitle: string
     dateRange: DateRange

@@ -3,6 +3,7 @@ import { TransportData } from '../../types/mocks'
 export const transportData: TransportData = {
     segments: [
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-25',
             mode: 'flight',
             from: {
@@ -13,10 +14,11 @@ export const transportData: TransportData = {
                 location: 'Эйндховен',
                 time: '09:00'
             },
-            cost: 0, // Cost not specified in the document
+            cost: 0,
             notes: 'Перекус с кофе в аэропорту [15€]'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-25',
             mode: 'bus',
             from: {
@@ -25,12 +27,13 @@ export const transportData: TransportData = {
             },
             to: {
                 location: 'Вокзал Эйндховена',
-                time: '10:00' // Time not specified, estimated
+                time: '10:00'
             },
             cost: 3.22,
             notes: 'Автобус из аэропорта на вокзал'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-25',
             mode: 'train',
             from: {
@@ -45,6 +48,7 @@ export const transportData: TransportData = {
             notes: 'Поезд из Эйндховена в Утрехт'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-25',
             mode: 'train',
             from: {
@@ -59,6 +63,7 @@ export const transportData: TransportData = {
             notes: 'Поезд из Утрехта'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-25',
             mode: 'bus',
             from: {
@@ -73,6 +78,7 @@ export const transportData: TransportData = {
             notes: 'Автобус из Steenwijk'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-29',
             mode: 'bus',
             from: {
@@ -81,12 +87,13 @@ export const transportData: TransportData = {
             },
             to: {
                 location: 'Steenwijk',
-                time: '11:00' // Time not specified, estimated
+                time: '11:00'
             },
             cost: 3.21,
             notes: 'Автобус из Giethoorn'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-03-29',
             mode: 'train',
             from: {
@@ -101,6 +108,7 @@ export const transportData: TransportData = {
             notes: 'Поезд из Steenwijk'
         },
         {
+            tripId: 'netherlands-2025',
             date: '2025-04-07',
             mode: 'flight',
             from: {
@@ -111,7 +119,7 @@ export const transportData: TransportData = {
                 location: 'Вильнюс',
                 time: '19:50'
             },
-            cost: 0, // Cost not specified in the document
+            cost: 0,
             notes: ''
         }
     ]

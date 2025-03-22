@@ -7,13 +7,15 @@ const DateContext = createContext<DateContextType | undefined>(undefined)
 
 export function DateProvider({ children }: DateProviderProps) {
     const navigate = useNavigate()
-    const { date: pathDate } = useParams()
+    const { tripId: pathTripId, date: pathDate } = useParams()
     const location = useLocation()
     const [currentDate, setCurrentDate] = useState<Dayjs | null>(null)
     
     useEffect(() => {
-        if (pathDate?.length === 8) {
-            const date = dayjs(pathDate, 'YYYYMMDD')
+        if (pathDate) {
+            const date = pathDate.length === 8 
+                ? dayjs(pathDate, 'YYYYMMDD') 
+                : dayjs(pathDate)
             setCurrentDate(date)
         } else if (!location.pathname.includes('/trip/')) {
             const date = dayjs()
@@ -21,7 +23,8 @@ export function DateProvider({ children }: DateProviderProps) {
         }
     }, [pathDate, location])
     
-    const updateUrlWithDate = (date: Dayjs | null, tripId = 'default') => {
+    const updateUrlWithDate = (date: Dayjs | null, customTripId?: string) => {
+        const tripId = customTripId || pathTripId || 'default'
         if (date) {
             navigate(`/trip/${tripId}/day/${date.format('YYYYMMDD')}`)
         } else {

@@ -1,6 +1,7 @@
 import { LatLngTuple } from 'leaflet'
 
 export interface TransportSegment {
+    tripId?: string
     date: string
     mode: string
     from: {
@@ -20,6 +21,7 @@ export interface TransportData {
 }
 
 export interface Activity {
+    tripId?: string
     type: string
     name: string
     description: string
@@ -27,11 +29,13 @@ export interface Activity {
 }
 
 export interface CityActivities {
+    tripId?: string
     city: string
     activities: Activity[]
 }
 
 export interface ShoppingCategory {
+    tripId?: string
     category: string
     items: string[]
 }
@@ -49,6 +53,7 @@ export interface PackingItem {
 }
 
 export interface Traveler {
+    tripId?: string
     name: string
     items: PackingItem[]
 }

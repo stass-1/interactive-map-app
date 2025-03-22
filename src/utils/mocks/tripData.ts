@@ -1,6 +1,7 @@
 import { TripData } from '../../types/map'
 
 export const tripData: TripData = {
+    id: 'netherlands-2025',
     title: "Путешествие в поисках истинного голландского gezelligheid",
     subtitle: "Открывая уют, тепло и душевность Нидерландов",
     dateRange: {

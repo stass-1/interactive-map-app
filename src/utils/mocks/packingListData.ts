@@ -3,6 +3,7 @@ import { PackingListData } from '../../types/mocks'
 export const packingListData: PackingListData = {
     travelers: [
         {
+            tripId: 'netherlands-2025',
             name: 'Папа',
             items: [
                 { name: 'Паспорт', category: 'Documents', packed: false },
@@ -26,6 +27,7 @@ export const packingListData: PackingListData = {
             ]
         },
         {
+            tripId: 'netherlands-2025',
             name: 'Я',
             items: [
                 { name: 'Паспорт', category: 'Documents', packed: false },
