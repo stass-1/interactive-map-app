@@ -15,32 +15,91 @@ An interactive web application using React with TypeScript and OpenStreetMap for
 - React component architecture with TypeScript type safety
 - File structure with separation into components, utils, types, etc.
 
+## FILESYSTEM ACCESS
+
+This project can be developed on both Windows and Unix-based systems (Mac/Linux). Before using filesystem tools, always check which system you're currently working on.
+
+### Determining Your Current Environment
+
+When starting work on the codebase, first run this command to check allowed directories:
+
+```bash
+list_allowed_directories
+```
+
+The response will indicate the base paths available for the current environment:
+
+- **Windows environment**: Paths will start with drive letters (e.g., `D:\Projects\ed`)
+- **Unix environment**: Paths will use forward slashes (e.g., `/Users/stass/Documents/ed`)
+
+Always use the appropriate path format for the current environment when accessing files.
+
+### Working with Filesystem Paths
+
+#### Windows Environment
+- Base Directory: `D:\Projects\ed\`
+- Use backslashes in paths: `D:\Projects\ed\src\utils\mocks\tripData.ts`
+
+#### Unix Environment (Mac/Linux)
+- Base Directory: `/Users/stass/Documents/ed/`
+- Use forward slashes in paths: `/Users/stass/Documents/ed/src/utils/mocks/tripData.ts`
+
+⚠️ **Important**: When using filesystem tools, always use the complete absolute path that matches the current environment. Relative paths (e.g., `/src/utils/mocks`) will not work.
+
+#### Code References
+Within the codebase (imports, etc.), continue using relative paths as normal:
+```javascript
+import { transportData } from '../../utils/mocks/transportData'
+```
+
+## CROSS-PLATFORM DEVELOPMENT GUIDELINES
+
+### Path References
+- When documenting paths in this README or other documentation, include both formats:
+  - Windows: `D:\Projects\ed\src\components\`
+  - Unix: `/Users/stass/Documents/ed/src/components/`
+
+### Git Configuration
+- Configure Git to handle line endings properly:
+  ```bash
+  git config --global core.autocrlf true  # On Windows
+  git config --global core.autocrlf input # On Mac/Linux
+  ```
+
+### Code Editor Settings
+- Make sure your editor is configured to use the proper line endings and 4-space indentation
+- VSCode users should apply the project's `.editorconfig` settings
+
+### Testing Before Committing
+- When working across platforms, test your changes on both systems if possible
+- Be especially careful with path-sensitive operations and filesystem interactions
+
 ## File Structure
 
 ### Key Directories
-- **D:\\Projects\\ed\\src\\components\\** (Unix: **/src/components/**) - React components
-- **D:\\Projects\\ed\\src\\components\\auth\\** (Unix: **/src/components/auth/**) - Authentication-related components
-- **D:\\Projects\\ed\\src\\components\\layout\\** (Unix: **/src/components/layout/**) - Layout-related components
-- **D:\\Projects\\ed\\src\\components\\ui\\** (Unix: **/src/components/ui/**) - Reusable UI components
-- **D:\\Projects\\ed\\src\\context\\** (Unix: **/src/context/**) - React context providers
-- **D:\\Projects\\ed\\src\\types\\** (Unix: **/src/types/**) - TypeScript type definitions
-- **D:\\Projects\\ed\\src\\utils\\** (Unix: **/src/utils/**) - Utility functions
+- **D:\\Projects\\ed\\src\\components\\** (Unix: **/Users/stass/Documents/ed/src/components/**) - React components
+- **D:\\Projects\\ed\\src\\components\\auth\\** (Unix: **/Users/stass/Documents/ed/src/components/auth/**) - Authentication-related components
+- **D:\\Projects\\ed\\src\\components\\layout\\** (Unix: **/Users/stass/Documents/ed/src/components/layout/**) - Layout-related components
+- **D:\\Projects\\ed\\src\\components\\ui\\** (Unix: **/Users/stass/Documents/ed/src/components/ui/**) - Reusable UI components
+- **D:\\Projects\\ed\\src\\context\\** (Unix: **/Users/stass/Documents/ed/src/context/**) - React context providers
+- **D:\\Projects\\ed\\src\\types\\** (Unix: **/Users/stass/Documents/ed/src/types/**) - TypeScript type definitions
+- **D:\\Projects\\ed\\src\\utils\\** (Unix: **/Users/stass/Documents/ed/src/utils/**) - Utility functions
 
 ### Key Files
-- **D:\\Projects\\ed\\src\\App.tsx** (Unix: **/src/App.tsx**) - Main application component with sidebar content and logout functionality
-- **D:\\Projects\\ed\\src\\components\\Map.tsx** (Unix: **/src/components/Map.tsx**) - OpenStreetMap implementation using React Leaflet
-- **D:\\Projects\\ed\\src\\components\\auth\\LoginPage.tsx** (Unix: **/src/components/auth/LoginPage.tsx**) - Authentication page with form and map background
-- **D:\\Projects\\ed\\src\\components\\auth\\LoginMap.tsx** (Unix: **/src/components/auth/LoginMap.tsx**) - Map component used in login page
-- **D:\\Projects\\ed\\src\\components\\layout\\CollapsibleLayout.tsx** (Unix: **/src/components/layout/CollapsibleLayout.tsx**) - Two-column layout with collapsible sidebar
-- **D:\\Projects\\ed\\src\\context\\AuthContext.tsx** (Unix: **/src/context/AuthContext.tsx**) - Manages authentication state with login/logout functions
-- **D:\\Projects\\ed\\src\\types\\auth.ts** (Unix: **/src/types/auth.ts**) - Authentication related type definitions
-- **D:\\Projects\\ed\\src\\types\\map.ts** (Unix: **/src/types/map.ts**) - Map and geographic data type definitions
-- **D:\\Projects\\ed\\src\\utils\\mocks\\tripData.ts** (Unix: **/src/utils/mocks/tripData.ts**) - Contains strongly-typed trip data for map markers
-- **D:\\Projects\\ed\\src\\utils\\mocks\\activitiesData.ts** (Unix: **/src/utils/mocks/activitiesData.ts**) - Contains mock activity data
-- **D:\\Projects\\ed\\src\\utils\\mocks\\packingListData.ts** (Unix: **/src/utils/mocks/packingListData.ts**) - Contains mock packing list data
-- **D:\\Projects\\ed\\src\\utils\\mocks\\transportData.ts** (Unix: **/src/utils/mocks/transportData.ts**) - Contains mock transportation data
-- **D:\\Projects\\ed\\src\\utils\\googleAuth.ts** (Unix: **/src/utils/googleAuth.ts**) - Handles Google authentication
-- **D:\\Projects\\ed\\src\\utils\\leaflet-icon-fix.ts** (Unix: **/src/utils/leaflet-icon-fix.ts**) - Fixes for Leaflet map icons
+- **D:\\Projects\\ed\\src\\App.tsx** (Unix: **/Users/stass/Documents/ed/src/App.tsx**) - Main application component with sidebar content and logout functionality
+- **D:\\Projects\\ed\\src\\components\\Map.tsx** (Unix: **/Users/stass/Documents/ed/src/components/Map.tsx**) - OpenStreetMap implementation using React Leaflet
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginPage.tsx** (Unix: **/Users/stass/Documents/ed/src/components/auth/LoginPage.tsx**) - Authentication page with form and map background
+- **D:\\Projects\\ed\\src\\components\\auth\\LoginMap.tsx** (Unix: **/Users/stass/Documents/ed/src/components/auth/LoginMap.tsx**) - Map component used in login page
+- **D:\\Projects\\ed\\src\\components\\layout\\CollapsibleLayout.tsx** (Unix: **/Users/stass/Documents/ed/src/components/layout/CollapsibleLayout.tsx**) - Two-column layout with collapsible sidebar
+- **D:\\Projects\\ed\\src\\context\\AuthContext.tsx** (Unix: **/Users/stass/Documents/ed/src/context/AuthContext.tsx**) - Manages authentication state with login/logout functions
+- **D:\\Projects\\ed\\src\\types\\auth.ts** (Unix: **/Users/stass/Documents/ed/src/types/auth.ts**) - Authentication related type definitions
+- **D:\\Projects\\ed\\src\\types\\map.ts** (Unix: **/Users/stass/Documents/ed/src/types/map.ts**) - Map and geographic data type definitions
+- **D:\\Projects\\ed\\src\\utils\\mocks\\tripData.ts** (Unix: **/Users/stass/Documents/ed/src/utils/mocks/tripData.ts**) - Contains strongly-typed trip data for map markers
+- **D:\\Projects\\ed\\src\\utils\\mocks\\activitiesData.ts** (Unix: **/Users/stass/Documents/ed/src/utils/mocks/activitiesData.ts**) - Contains mock activity data
+- **D:\\Projects\\ed\\src\\utils\\mocks\\packingListData.ts** (Unix: **/Users/stass/Documents/ed/src/utils/mocks/packingListData.ts**) - Contains mock packing list data
+- **D:\\Projects\\ed\\src\\utils\\mocks\\transportData.ts** (Unix: **/Users/stass/Documents/ed/src/utils/mocks/transportData.ts**) - Contains mock transportation data
+- **D:\\Projects\\ed\\src\\utils\\googleAuth.ts** (Unix: **/Users/stass/Documents/ed/src/utils/googleAuth.ts**) - Handles Google authentication
+- **D:\\Projects\\ed\\src\\utils\\leaflet-icon-fix.ts** (Unix: **/Users/stass/Documents/ed/src/utils/leaflet-icon-fix.ts**) - Fixes for Leaflet map icons
 
 ### Component Relationships
 - **App.tsx** uses **CollapsibleLayout.tsx** for the main UI structure
@@ -124,6 +183,16 @@ The application will be available at `http://localhost:5173`.
    ```
    - `v7_relativeSplatPath`: Ensures correct relative route resolution within splat routes
    - `v7_startTransition`: Uses React.useTransition for smoother navigation and better concurrent mode compatibility
+
+6. **README Updates**: When making changes to the README, always provide a formatted version without markdown after the changes are complete, to facilitate copy-pasting into other documents.
+
+7. **Documentation Synchronization**: When making significant architectural changes or adding new major features, update both the README and the "[tech] Travel Planner" Google Document to keep project knowledge synchronized across platforms.
+
+8. **Working with AI Assistants**: When working with AI assistants (like Claude):
+   - Always mention which operating system environment is currently being used when asking for file modifications
+   - Provide specific absolute file paths for any files that need to be modified
+   - If the assistant makes an error with file paths, direct it to use `list_allowed_directories` first to determine the correct environment
+   - Use the appropriate context-setting documents to provide the assistant with necessary project information
 
 ## License
 
