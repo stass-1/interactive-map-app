@@ -1,4 +1,5 @@
-import { Box, Typography, Card, CardContent, CardActionArea, CardMedia, Grid, Paper } from '@mui/material'
+import { Box, Button, Typography, Card, CardContent, CardActionArea, CardMedia, Grid, Paper } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 import { useNavigate } from 'react-router-dom'
 import { upcomingTrips } from '../../utils/mocks/tripsData'
 import dayjs from 'dayjs'
@@ -16,6 +17,16 @@ const AllTrips = () => {
 
     return (
         <Box>
+
+            <Button
+                fullWidth
+                variant="contained" 
+                startIcon={<AddIcon />}
+                onClick={() => {}}
+            >
+                New Trip
+            </Button>
+
             <Typography variant="h5" mb={2}>Upcoming Travels</Typography>
             
             <Grid container spacing={3}>
