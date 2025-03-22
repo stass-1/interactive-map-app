@@ -4,7 +4,7 @@ export interface CollapsibleLayoutProps {
     sidebarContent?: ReactNode
     mapContent?: ReactNode
     sidebarControls?: ReactElement<any>
-    onLogout?: () => void
+    onLogout: () => Promise<void>
 }
 
 export interface UserProfileProps {
