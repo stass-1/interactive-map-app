@@ -181,9 +181,6 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
     
     return (
         <Box sx={{ mb: 4 }}>
-            <Typography variant="subtitle1" gutterBottom>
-                Trip Calendar
-            </Typography>
             
             {calendarMonths.map((month, monthIndex) => (
                 <Box key={monthIndex} sx={{ mb: 2 }}>
@@ -295,27 +292,21 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                     <Typography variant="caption">Accommodation</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Box sx={{ 
-                        width: 8, 
-                        height: 8, 
-                        ...getCalendarDotStyle('transport', theme)
-                    }}/>
+                    <Box sx={
+                        getCalendarDotStyle('transport', theme)
+                    }/>
                     <Typography variant="caption">Transport</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Box sx={{ 
-                        width: 8, 
-                        height: 8, 
-                        ...getCalendarDotStyle('visit', theme)
-                    }}/>
+                    <Box sx={
+                        getCalendarDotStyle('visit', theme)
+                    }/>
                     <Typography variant="caption">Visits</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Box sx={{ 
-                        width: 8, 
-                        height: 8, 
-                        ...getCalendarDotStyle('activity', theme)
-                    }}/>
+                    <Box sx={
+                        getCalendarDotStyle('activity', theme)
+                    }/>
                     <Typography variant="caption">Activities</Typography>
                 </Box>
             </Box>

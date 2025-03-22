@@ -129,61 +129,56 @@ const Trip = () => {
             )}
 
             {currentTrip && (
-                <>
-                    <Typography variant="h5" gutterBottom>
-                        Trip Itinerary
-                    </Typography>
-                    <Box sx={{ mb: 3, bgcolor: 'background.paper' }}>
-                        {Object.entries(groupByType(currentTrip.itinerary)).map(([type, items], typeIndex) => (
-                            <Box key={typeIndex} sx={{ p: 2 }}>
-                                <Typography variant="subtitle1" gutterBottom sx={{ textTransform: 'capitalize' }}>
-                                    {type}
-                                </Typography>
-                                <List>
-                                    {items.map((item, itemIndex) => (
-                                        <ListItem 
-                                            key={itemIndex}
-                                            sx={{ 
-                                                mb: 1, 
-                                                ...getItemBorderStyle(type),
-                                                pl: 2,
-                                                bgcolor: 'background.default'
-                                            }}
-                                        >
-                                            <ListItemIcon>
-                                                {getTripItemIcon(item)}
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={
-                                                    <Stack direction="row" spacing={1} alignItems="center">
-                                                        <Typography variant="body1">
-                                                            {item.location}
-                                                        </Typography>
-                                                        {item.date && (
-                                                            <Chip 
-                                                                label={formatDate(item.date)} 
-                                                                size="small" 
-                                                                sx={{ bgcolor: 'rgba(0,0,0,0.08)' }}
-                                                            />
-                                                        )}
-                                                        {item.dateRange && (
-                                                            <Chip 
-                                                                label={`${formatDate(item.dateRange.start)} - ${formatDate(item.dateRange.end)}`} 
-                                                                size="small" 
-                                                                sx={{ bgcolor: 'rgba(0,0,0,0.08)' }}
-                                                            />
-                                                        )}
-                                                    </Stack>
-                                                }
-                                                secondary={item.description}
-                                            />
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </Box>
-                        ))}
-                    </Box>
-                </>
+                <Box sx={{ mb: 3, bgcolor: 'background.paper' }}>
+                    {Object.entries(groupByType(currentTrip.itinerary)).map(([type, items], typeIndex) => (
+                        <Box key={typeIndex}>
+                            <Typography variant="subtitle2" gutterBottom sx={{ textTransform: 'capitalize' }}>
+                                {type}
+                            </Typography>
+                            <List>
+                                {items.map((item, itemIndex) => (
+                                    <ListItem 
+                                        key={itemIndex}
+                                        sx={{ 
+                                            mb: 1, 
+                                            ...getItemBorderStyle(type),
+                                            pl: 2,
+                                            bgcolor: 'background.default'
+                                        }}
+                                    >
+                                        <ListItemIcon>
+                                            {getTripItemIcon(item)}
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={
+                                                <Stack direction="row" spacing={1} alignItems="center">
+                                                    <Typography variant="body1">
+                                                        {item.location}
+                                                    </Typography>
+                                                    {item.date && (
+                                                        <Chip 
+                                                            label={formatDate(item.date)} 
+                                                            size="small" 
+                                                            sx={{ bgcolor: 'rgba(0,0,0,0.08)' }}
+                                                        />
+                                                    )}
+                                                    {item.dateRange && (
+                                                        <Chip 
+                                                            label={`${formatDate(item.dateRange.start)} - ${formatDate(item.dateRange.end)}`} 
+                                                            size="small" 
+                                                            sx={{ bgcolor: 'rgba(0,0,0,0.08)' }}
+                                                        />
+                                                    )}
+                                                </Stack>
+                                            }
+                                            secondary={item.description}
+                                        />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Box>
+                    ))}
+                </Box>
             )}
         </Box>
     )
