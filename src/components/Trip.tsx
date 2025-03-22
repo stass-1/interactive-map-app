@@ -4,6 +4,7 @@ import { tripsData, tripData } from '../utils/mocks/tripData'
 import { upcomingTrips } from '../utils/mocks/tripsData'
 import { transportData } from '../utils/mocks/transportData'
 import { activitiesData } from '../utils/mocks/activitiesData'
+import { getItemBorderStyle } from '../utils/styles/colorUtils'
 import dayjs from 'dayjs'
 import PeopleIcon from '@mui/icons-material/People'
 import DateRangeIcon from '@mui/icons-material/DateRange'
@@ -144,8 +145,7 @@ const Trip = () => {
                                             key={itemIndex}
                                             sx={{ 
                                                 mb: 1, 
-                                                borderLeft: '3px solid',
-                                                borderLeftColor: type === 'accommodation' ? 'primary.main' : 'secondary.main',
+                                                ...getItemBorderStyle(type),
                                                 pl: 2,
                                                 bgcolor: 'background.default'
                                             }}

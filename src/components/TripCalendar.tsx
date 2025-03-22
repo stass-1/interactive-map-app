@@ -1,10 +1,11 @@
-import { Box, Typography, Grid, Tooltip } from '@mui/material'
+import { Box, Typography, Grid, Tooltip, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 import { TripData } from '../types/map'
 import { TransportData } from '../types/mocks'
 import { ActivitiesData } from '../types/mocks'
 import { useState, useEffect } from 'react'
+import { getCalendarDotStyle, getBorderStyle } from '../utils/styles/colorUtils'
 
 interface TripCalendarProps {
     tripId: string
@@ -23,6 +24,7 @@ interface DayData {
 }
 
 const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripCalendarProps) => {
+    const theme = useTheme()
     const navigate = useNavigate()
     const [calendarDays, setCalendarDays] = useState<DayData[][]>([])
     const [calendarMonths, setCalendarMonths] = useState<string[]>([])
@@ -246,7 +248,7 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                                                     cursor: day.isInTrip ? 'pointer' : 'default',
                                                     backgroundColor: day.isInTrip ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
                                                     borderRadius: '4px',
-                                                    border: day.hasAccommodation ? '2px solid rgba(76, 175, 80, 0.8)' : 'none',
+                                                    ...(day.hasAccommodation ? getBorderStyle('accommodation') : {}),
                                                     color: day.isInTrip ? 'text.primary' : 'text.disabled',
                                                     '&:hover': {
                                                         backgroundColor: day.isInTrip 
@@ -263,28 +265,13 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                                                     gap: '2px' 
                                                 }}>
                                                     {day.hasTransport && (
-                                                        <Box sx={{ 
-                                                            width: 4, 
-                                                            height: 4, 
-                                                            borderRadius: '50%', 
-                                                            backgroundColor: 'secondary.main'
-                                                        }}/>
+                                                        <Box sx={getCalendarDotStyle('transport', theme)}/>
                                                     )}
                                                     {day.hasVisit && (
-                                                        <Box sx={{ 
-                                                            width: 4, 
-                                                            height: 4, 
-                                                            borderRadius: '50%', 
-                                                            backgroundColor: 'warning.main'
-                                                        }}/>
+                                                        <Box sx={getCalendarDotStyle('visit', theme)}/>
                                                     )}
                                                     {day.hasActivity && (
-                                                        <Box sx={{ 
-                                                            width: 4, 
-                                                            height: 4, 
-                                                            borderRadius: '50%', 
-                                                            backgroundColor: 'error.main'
-                                                        }}/>
+                                                        <Box sx={getCalendarDotStyle('activity', theme)}/>
                                                     )}
                                                 </Box>
                                             </Box>
@@ -302,7 +289,7 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                     <Box sx={{ 
                         width: 12, 
                         height: 12, 
-                        border: '2px solid rgba(76, 175, 80, 0.8)',
+                        ...getBorderStyle('accommodation'),
                         borderRadius: '2px'
                     }}/>
                     <Typography variant="caption">Accommodation</Typography>
@@ -311,8 +298,7 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                     <Box sx={{ 
                         width: 8, 
                         height: 8, 
-                        borderRadius: '50%', 
-                        backgroundColor: 'secondary.main'
+                        ...getCalendarDotStyle('transport', theme)
                     }}/>
                     <Typography variant="caption">Transport</Typography>
                 </Box>
@@ -320,8 +306,7 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                     <Box sx={{ 
                         width: 8, 
                         height: 8, 
-                        borderRadius: '50%', 
-                        backgroundColor: 'warning.main'
+                        ...getCalendarDotStyle('visit', theme)
                     }}/>
                     <Typography variant="caption">Visits</Typography>
                 </Box>
@@ -329,8 +314,7 @@ const TripCalendar = ({ tripId, tripData, transportData, activitiesData }: TripC
                     <Box sx={{ 
                         width: 8, 
                         height: 8, 
-                        borderRadius: '50%', 
-                        backgroundColor: 'error.main'
+                        ...getCalendarDotStyle('activity', theme)
                     }}/>
                     <Typography variant="caption">Activities</Typography>
                 </Box>

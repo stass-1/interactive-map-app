@@ -8,6 +8,7 @@ import { activitiesData } from '../utils/mocks/activitiesData'
 import { tripsData } from '../utils/mocks/tripData'
 import { upcomingTrips } from '../utils/mocks/tripsData'
 import { TripItem } from '../types/map'
+import { getItemBorderStyle } from '../utils/styles/colorUtils'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
 import TrainIcon from '@mui/icons-material/Train'
 import FlightIcon from '@mui/icons-material/Flight'
@@ -190,8 +191,7 @@ const DayContent = ({ tripId }: DayContentProps) => {
                                 <ListItem 
                                     alignItems="flex-start"
                                     sx={{
-                                        borderLeft: '4px solid',
-                                        borderLeftColor: getTypeColor(item.type),
+                                        ...getItemBorderStyle(item.type),
                                         '&:hover': {
                                             backgroundColor: 'rgba(0, 0, 0, 0.04)'
                                         }
@@ -262,25 +262,7 @@ const getTripItemIcon = (item: TripItem) => {
     }
 }
 
-const getTypeColor = (type: string) => {
-    switch (type.toLowerCase()) {
-        case 'bus':
-        case 'train':
-        case 'flight':
-        case 'transit':
-            return '#3f51b5'
-        case 'accommodation':
-            return '#4caf50'
-        case 'visit':
-            return '#ff9800'
-        case 'food':
-            return '#e91e63'
-        case 'timegroup':
-            return '#607d8b'
-        default:
-            return '#9e9e9e'
-    }
-}
+
 
 const addTimeGroup = (items: DayPlanItem[]): DayPlanItem[] => {
     if (items.length === 0) return items
