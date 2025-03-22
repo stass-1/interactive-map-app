@@ -20,7 +20,7 @@ const Dashboard = () => {
             <Button
                 fullWidth
                 variant="contained" 
-                startIcon={<Box component={AddIcon} sx={{ mr: 1 }} />}
+                startIcon={<AddIcon />}
                 onClick={() => {}}
             >
                 New Trip
