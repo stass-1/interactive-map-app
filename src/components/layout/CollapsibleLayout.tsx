@@ -27,9 +27,8 @@ function CollapsibleLayout({ mapContent, sidebarControls, onLogout }: Collapsibl
 
     const handleLogoutClick = async () => {
         handleMenuClose()
-        await onLogout?.()
+        await onLogout()
         navigate('/login')
-        console.log('Logout clicked')
     }
 
     useEffect(() => {
