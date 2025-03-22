@@ -19,5 +19,25 @@ export const upcomingTrips: TripListItem[] = [
         },
         mainDestination: 'Нидерланды',
         image: '/img/netherlands.jpg'
+    },
+    {
+        id: 'paris-weekend',
+        title: 'Романтический уикенд в Париже',
+        dateRange: {
+            start: '2025-04-18',
+            end: '2025-04-20'
+        },
+        mainDestination: 'Франция',
+        image: '/img/paris.jpg'
+    },
+    {
+        id: 'southeast-asia',
+        title: 'Путешествие по Юго-Восточной Азии',
+        dateRange: {
+            start: '2025-05-15',
+            end: '2025-08-10'
+        },
+        mainDestination: 'Юго-Восточная Азия',
+        image: '/img/asia.jpg'
     }
 ]

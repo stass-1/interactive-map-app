@@ -2,6 +2,7 @@ import { ActivitiesData } from '../../types/mocks'
 
 export const activitiesData: ActivitiesData = {
     locations: [
+        // Netherlands trip activities
         {
             tripId: 'netherlands-2025',
             city: 'Утрехт',
@@ -52,6 +53,76 @@ export const activitiesData: ActivitiesData = {
             tripId: 'netherlands-2025',
             city: 'Amersfoort',
             activities: []
+        },
+        
+        // Paris weekend activities
+        {
+            tripId: 'paris-weekend',
+            city: 'Париж',
+            activities: [
+                {
+                    tripId: 'paris-weekend',
+                    type: 'food',
+                    name: 'Le Comptoir du Relais',
+                    description: 'Классический французский ресторан с сезонным меню',
+                    coordinates: [48.8539, 2.3390]
+                },
+                {
+                    tripId: 'paris-weekend',
+                    type: 'food',
+                    name: 'Café de Flore',
+                    description: 'Историческое кафе, популярное среди интеллектуалов и художников',
+                    coordinates: [48.8535, 2.3333]
+                }
+            ]
+        },
+        
+        // Southeast Asia activities
+        {
+            tripId: 'southeast-asia',
+            city: 'Бангкок',
+            activities: [
+                {
+                    tripId: 'southeast-asia',
+                    type: 'food',
+                    name: 'Jay Fai',
+                    description: 'Знаменитая уличная еда с мишленовской звездой',
+                    coordinates: [13.7530, 100.5090]
+                },
+                {
+                    tripId: 'southeast-asia',
+                    type: 'food',
+                    name: 'Nahm',
+                    description: 'Изысканная тайская кухня',
+                    coordinates: [13.7228, 100.5149]
+                }
+            ]
+        },
+        {
+            tripId: 'southeast-asia',
+            city: 'Чиангмай',
+            activities: [
+                {
+                    tripId: 'southeast-asia',
+                    type: 'food',
+                    name: 'Khao Soi Lam Duan',
+                    description: 'Традиционный суп кхао сой',
+                    coordinates: [18.7833, 98.9899]
+                }
+            ]
+        },
+        {
+            tripId: 'southeast-asia',
+            city: 'Хошимин',
+            activities: [
+                {
+                    tripId: 'southeast-asia',
+                    type: 'food',
+                    name: 'Pho Hoa',
+                    description: 'Классический вьетнамский суп фо',
+                    coordinates: [10.7772, 106.6981]
+                }
+            ]
         }
     ],
     shoppingItems: [

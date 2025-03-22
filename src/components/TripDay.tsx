@@ -5,7 +5,7 @@ import { DateProvider, useDate } from '../context/DateContext'
 import { useEffect, useState } from 'react'
 import { transportData } from '../utils/mocks/transportData'
 import { activitiesData } from '../utils/mocks/activitiesData'
-import { tripData } from '../utils/mocks/tripData'
+import { tripsData } from '../utils/mocks/tripData'
 import { upcomingTrips } from '../utils/mocks/tripsData'
 import { TripItem } from '../types/map'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
@@ -49,7 +49,7 @@ const DayContent = ({ tripId }: DayContentProps) => {
     useEffect(() => {
         if (!currentDate || !tripId) return
         
-        const currentTrip = tripData.id === tripId ? tripData : null
+        const currentTrip = tripsData[tripId] || null
         if (!currentTrip) {
             setDayPlan([])
             return
@@ -129,10 +129,8 @@ const DayContent = ({ tripId }: DayContentProps) => {
         return <Typography sx={{ p: 2 }}>Select a date to view your trip plan</Typography>
     }
     
-    const formattedDate = dayjs(currentDate).format('DD MMMM YYYY')
-    
     const currentTripBasicInfo = tripId ? upcomingTrips.find(trip => trip.id === tripId) : null
-    const currentTrip = tripId && tripData.id === tripId ? tripData : null
+    const currentTrip = tripId && tripsData[tripId] ? tripsData[tripId] : null
     
     const tripDateRange = currentTrip?.dateRange || currentTripBasicInfo?.dateRange
     const isDateWithinTrip = tripDateRange && 

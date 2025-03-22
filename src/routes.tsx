@@ -55,7 +55,7 @@ export const routes = [
             },
             {
                 path: 'trip/:tripId/day/:date',
-                element: <TripDay />,
+                element: <TripDay />
             }
         ]
     },
