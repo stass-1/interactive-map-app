@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { transportData } from '../utils/mocks/transportData'
 import { activitiesData } from '../utils/mocks/activitiesData'
 import { tripData } from '../utils/mocks/tripData'
-import { TransportSegment } from '../types/mocks'
+import { upcomingTrips } from '../utils/mocks/tripsData'
 import { TripItem } from '../types/map'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
 import TrainIcon from '@mui/icons-material/Train'
@@ -14,7 +14,6 @@ import FlightIcon from '@mui/icons-material/Flight'
 import HotelIcon from '@mui/icons-material/Hotel'
 import ExploreIcon from '@mui/icons-material/Explore'
 import RestaurantIcon from '@mui/icons-material/Restaurant'
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import dayjs from 'dayjs'
 
 const TripDay = () => {
@@ -50,6 +49,12 @@ const DayContent = ({ tripId }: DayContentProps) => {
     useEffect(() => {
         if (!currentDate || !tripId) return
         
+        const currentTrip = tripData.id === tripId ? tripData : null
+        if (!currentTrip) {
+            setDayPlan([])
+            return
+        }
+        
         const formattedDate = currentDate.format('YYYY-MM-DD')
         let planItems: DayPlanItem[] = []
         
@@ -67,7 +72,7 @@ const DayContent = ({ tripId }: DayContentProps) => {
             })
         })
         
-        const tripItems = tripData.itinerary.filter(item => {
+        const tripItems = currentTrip.itinerary.filter(item => {
             if (item.date === formattedDate) return true
             if (item.dateRange && 
                 dayjs(formattedDate).isAfter(dayjs(item.dateRange.start).subtract(1, 'day')) && 
@@ -125,23 +130,38 @@ const DayContent = ({ tripId }: DayContentProps) => {
     }
     
     const formattedDate = dayjs(currentDate).format('DD MMMM YYYY')
-    const isDateWithinTrip = dayjs(currentDate).isAfter(dayjs(tripData.dateRange.start).subtract(1, 'day')) && 
-                            dayjs(currentDate).isBefore(dayjs(tripData.dateRange.end).add(1, 'day'))
+    
+    const currentTripBasicInfo = tripId ? upcomingTrips.find(trip => trip.id === tripId) : null
+    const currentTrip = tripId && tripData.id === tripId ? tripData : null
+    
+    const tripDateRange = currentTrip?.dateRange || currentTripBasicInfo?.dateRange
+    const isDateWithinTrip = tripDateRange && 
+                          dayjs(currentDate).isAfter(dayjs(tripDateRange.start).subtract(1, 'day')) && 
+                          dayjs(currentDate).isBefore(dayjs(tripDateRange.end).add(1, 'day'))
     
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant="h5" sx={{ mb: 2, fontWeight: 'medium' }}>
-                {formattedDate}
-            </Typography>
             
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {tripData.title}
-            </Typography>
-            
-            {!isDateWithinTrip && (
+            {tripDateRange && !isDateWithinTrip && (
                 <Paper sx={{ p: 2, mb: 2, bgcolor: 'rgba(255, 152, 0, 0.08)' }}>
                     <Typography variant="body2" color="warning.main">
-                        Selected date is outside the trip date range ({tripData.dateRange.start} - {tripData.dateRange.end}).
+                        Selected date is outside the trip date range ({tripDateRange.start} - {tripDateRange.end}).
+                    </Typography>
+                </Paper>
+            )}
+            
+            {!currentTrip && !currentTripBasicInfo && (
+                <Paper sx={{ p: 2, mb: 2, bgcolor: 'rgba(255, 152, 0, 0.08)' }}>
+                    <Typography variant="body2" color="warning.main">
+                        No trip data found for ID: {tripId}
+                    </Typography>
+                </Paper>
+            )}
+            
+            {!currentTrip && currentTripBasicInfo && (
+                <Paper sx={{ p: 2, mb: 2, bgcolor: 'rgba(255, 152, 0, 0.08)' }}>
+                    <Typography variant="body2" color="warning.main">
+                        Trip found but no detailed data available.
                     </Typography>
                 </Paper>
             )}

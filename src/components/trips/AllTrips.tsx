@@ -17,12 +17,12 @@ const AllTrips = () => {
 
     return (
         <Box>
-
             <Button
                 fullWidth
                 variant="contained" 
                 startIcon={<AddIcon />}
                 onClick={() => {}}
+                sx={{ mb: 4 }}
             >
                 New Trip
             </Button>
