@@ -10,7 +10,7 @@ export interface CollapsibleLayoutProps {
 export interface UserProfileProps {
     onClick?: (event: MouseEvent<HTMLElement>) => void
     isCollapsed?: boolean
-    onLogout?: () => void
+    onLogout?: () => Promise<void>
 }
 
 export interface DateSelectorProps {
